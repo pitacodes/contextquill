@@ -228,6 +228,14 @@ const TOOLS = [
     annotations: { readOnlyHint: true, openWorldHint: false, destructiveHint: false },
   },
   {
+    name: "verify_linkedin_connection",
+    title: "Verify LinkedIn connection live",
+    description:
+      "Call LinkedIn's official userinfo endpoint to verify that the stored token belongs to the configured member. Never exposes the token.",
+    inputSchema: objectSchema(),
+    annotations: { readOnlyHint: true, openWorldHint: true, destructiveHint: false },
+  },
+  {
     name: "record_post_metrics",
     title: "Record LinkedIn post performance",
     description:
@@ -293,6 +301,7 @@ const HANDLERS = {
   publish_approved_post: (args) => store.publishApprovedDraft(args),
   publish_due_posts: () => store.publishDuePosts(),
   linkedin_connection_status: () => store.connectionStatus(),
+  verify_linkedin_connection: () => store.verifyLinkedInConnection(),
   record_post_metrics: (args) => store.recordMetrics(args),
   analyze_performance: (args) => store.analyzePerformance(args),
   export_performance_report: (args) => store.exportPerformanceReport(args),

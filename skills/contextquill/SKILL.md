@@ -99,7 +99,8 @@ Do not submit a draft until it passes all checks:
    - for “publish now,” call `publish_approved_post`;
    - for a future time, call `schedule_approved_post` with a timezone-aware ISO date;
    - if the user asked only to approve, leave it in APPROVED state.
-7. Report the LinkedIn post ID or scheduled time. If the official connection is missing, do a dry run and explain the one remaining connection step.
+7. Before the first real publish in a session, use `verify_linkedin_connection` if connection freshness is uncertain.
+8. Report the LinkedIn post ID or scheduled time. If the official connection is missing, do a dry run and explain the one remaining connection step.
 
 ## Performance analysis
 
