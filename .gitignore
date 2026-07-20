@@ -1,0 +1,25 @@
+# Dependencies and generated output
+node_modules/
+coverage/
+dist/
+*.log
+
+# Local environment and credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.token
+credentials.json
+secrets.json
+
+# Private ContextQuill working data must remain outside the repository
+data/
+private/
+
+# Operating-system and editor files
+.DS_Store
+.idea/
+.vscode/

@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "contextquill": {
+      "title": "ContextQuill",
+      "description": "Capture work signals, manage reviewed LinkedIn drafts, publish approved posts, and analyze topic performance.",
+      "command": "node",
+      "args": [
+        "./mcp/server.mjs"
+      ],
+      "cwd": "."
+    }
+  }
+}

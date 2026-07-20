@@ -1,0 +1,40 @@
+{
+  "name": "contextquill",
+  "version": "0.1.0",
+  "description": "Turn real work into reviewed, high-quality LinkedIn content and learn which topics earn attention.",
+  "author": {
+    "name": "Peter"
+  },
+  "license": "MIT",
+  "keywords": [
+    "linkedin",
+    "content-marketing",
+    "b2b-saas",
+    "thought-leadership",
+    "analytics"
+  ],
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
+  "interface": {
+    "displayName": "ContextQuill",
+    "shortDescription": "Turn daily work into LinkedIn pipeline.",
+    "longDescription": "ContextQuill captures valuable ideas from real work, turns them into public-safe LinkedIn drafts, locks the exact human-approved version before publishing, and learns which topics and formats produce the most exposure.",
+    "developerName": "Peter",
+    "category": "Productivity",
+    "capabilities": [
+      "Read",
+      "Write",
+      "Analytics",
+      "LinkedIn publishing"
+    ],
+    "defaultPrompt": [
+      "Set up my ContextQuill content profile.",
+      "Find content signals in the work we just completed.",
+      "Show my best topics and prepare this week's posts."
+    ],
+    "brandColor": "#155E75",
+    "composerIcon": "./assets/contextquill-icon.svg",
+    "logo": "./assets/contextquill-logo.svg",
+    "logoDark": "./assets/contextquill-logo-dark.svg"
+  }
+}

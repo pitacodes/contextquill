@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 96">
+  <rect x="4" y="4" width="88" height="88" rx="22" fill="#22D3EE"/>
+  <path d="M24 27h48v9H24zm0 18h35v9H24zm0 18h24v9H24z" fill="#083344"/>
+  <circle cx="72" cy="69" r="11" fill="#155E75"/>
+  <text x="112" y="62" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="700" fill="#F8FAFC">ContextQuill</text>
+</svg>
