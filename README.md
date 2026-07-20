@@ -52,27 +52,39 @@ Set `CONTEXTQUILL_DATA_DIR` to use another location.
 
 ContextQuill uses LinkedIn's official APIs. It does not use browser cookies, simulated posting, or scraping.
 
-The personal version accepts a LinkedIn Developer Portal access token with the `w_member_social` permission. Run this inside the plugin directory:
+The personal ContextQuill LinkedIn app uses Client ID `86z5t5sel4czpt`. It needs the following scopes:
+
+- `openid` and `profile` to bind the token to the correct LinkedIn member;
+- `w_member_social` to publish on that member's behalf.
+
+Open LinkedIn's official OAuth token generator with:
+
+```text
+npm run authorize-linkedin
+```
+
+Select all three scopes and generate the token. Then store it securely with:
 
 ```text
 npm run connect-linkedin
 ```
 
-The helper asks for the access token without echoing it. If the token has `openid profile`, ContextQuill retrieves the member identifier automatically from LinkedIn's official `userinfo` endpoint. Otherwise it asks for the member ID or `urn:li:person:...` separately. On macOS, the token is stored in System Keychain and is never written to ContextQuill's JSON content store.
+The helper asks for the access token without echoing it, verifies the member through LinkedIn's official `userinfo` endpoint, and stores the token in macOS System Keychain. The token is never written to ContextQuill's JSON content store. ContextQuill records only the member URN, display name, connection time, and expected reauthorization date.
 
 You can also provide credentials through the launch environment:
 
 ```text
 LINKEDIN_MEMBER_URN
 LINKEDIN_ACCESS_TOKEN
-LINKEDIN_VERSION
 ```
 
-Run the connection diagnostic with:
+Run a live identity and connection diagnostic with:
 
 ```text
 npm run doctor
 ```
+
+Publishing uses the self-service Share on LinkedIn APIs: `POST /v2/ugcPosts` for text and article posts, plus `POST /v2/assets?action=registerUpload` before single-image posts. The member's daily self-service limit is 150 requests under LinkedIn's current documentation.
 
 ## What automatic publishing means
 
