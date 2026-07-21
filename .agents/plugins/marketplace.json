@@ -1,0 +1,21 @@
+{
+  "name": "contextquill",
+  "interface": {
+    "displayName": "ContextQuill"
+  },
+  "plugins": [
+    {
+      "name": "contextquill",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/pitacodes/contextquill.git",
+        "ref": "main"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

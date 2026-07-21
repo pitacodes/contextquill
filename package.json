@@ -1,6 +1,6 @@
 {
   "name": "contextquill",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "type": "module",
   "description": "Local-first Work-to-LinkedIn plugin for Codex and ChatGPT Work.",
@@ -8,7 +8,7 @@
     "test": "node --test tests/*.test.mjs",
     "mcp": "node mcp/server.mjs",
     "doctor": "node scripts/doctor.mjs",
-    "authorize-linkedin": "node scripts/open-linkedin-oauth.mjs",
+    "authorize-linkedin": "node scripts/authorize-linkedin.mjs",
     "connect-linkedin": "node scripts/store-linkedin-token.mjs"
   },
   "engines": {

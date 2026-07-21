@@ -2,7 +2,7 @@
 
 ContextQuill is a Work-to-LinkedIn assistant for Codex and ChatGPT Work. It discovers ideas worth sharing inside real work, turns them into high-quality public-safe drafts, locks the exact version approved by a human, and then publishes or schedules it. Post-performance data feeds the next topic and format recommendations.
 
-## What v0.1 includes
+## What v0.2 includes
 
 - Structured content signals from Codex work, customer conversations, analysis, retrospectives, and industry news
 - A profile for positioning, target audience, content pillars, voice, and disclosure boundaries
@@ -48,28 +48,43 @@ By default, private content data is stored in:
 
 Set `CONTEXTQUILL_DATA_DIR` to use another location.
 
+### GitHub marketplace beta
+
+After the repository is public, external beta users can install ContextQuill through its GitHub-backed marketplace:
+
+```text
+codex plugin marketplace add pitacodes/contextquill
+codex plugin add contextquill@contextquill
+```
+
+Restart the ChatGPT desktop app or start a new Codex CLI session after installation. While the repository remains private, installation requires GitHub access to the repository. See [Public distribution](./docs/public-distribution.md) for the official Plugins Directory path and its hosted-MCP requirements.
+
 ## Connect LinkedIn
 
 ContextQuill uses LinkedIn's official APIs. It does not use browser cookies, simulated posting, or scraping.
 
-The personal ContextQuill LinkedIn app uses Client ID `86z5t5sel4czpt`. It needs the following scopes:
+Each installation authorizes its own LinkedIn member through ContextQuill's hosted OAuth service. The LinkedIn client secret remains server-side. The app uses public Client ID `86z5t5sel4czpt` and requests only:
 
 - `openid` and `profile` to bind the token to the correct LinkedIn member;
 - `w_member_social` to publish on that member's behalf.
 
-Open LinkedIn's official OAuth token generator with:
+Connect in one step:
 
 ```text
 npm run authorize-linkedin
 ```
 
-Select all three scopes and generate the token. Then store it securely with:
+ContextQuill starts a temporary listener on a random `127.0.0.1` port and opens LinkedIn in the operating system's default browser. The hosted service validates OAuth state, exchanges LinkedIn's one-time code with the server-only client secret, verifies the member through `userinfo`, and returns an encrypted, installation-bound handoff code. Only the installation that started the flow can redeem it. On macOS, the resulting access token is stored in System Keychain under that member's URN.
+
+The plugin exposes the same flow through its `connect_linkedin` tool, so a user can simply ask ContextQuill to connect LinkedIn. Installing the plugin never grants access to another person's account.
+
+For troubleshooting only, the manual token helper remains available:
 
 ```text
 npm run connect-linkedin
 ```
 
-The helper asks for the access token without echoing it, verifies the member through LinkedIn's official `userinfo` endpoint, and stores the token in macOS System Keychain. The token is never written to ContextQuill's JSON content store. ContextQuill records only the member URN, display name, connection time, and expected reauthorization date.
+The hosted handoff record expires within five minutes and its encrypted token copy is erased immediately after one successful redemption. The access token is never written to ContextQuill's JSON content store or returned by its tools. ContextQuill records only the member URN, display name, granted scopes, connection time, and expected reauthorization date. Authorizing a different member replaces the local account binding and removes the previous Keychain credential.
 
 You can also provide credentials through the launch environment:
 
@@ -121,7 +136,7 @@ Analysis returns:
 - Publishing currently supports text and one image. Multi-image, video, and PDF document posts are later phases.
 - Personal-post performance data requires import and is not synchronized automatically.
 - Local scheduling depends on the ContextQuill process running. A commercial version needs hosted scheduling.
-- LinkedIn access tokens expire and require reauthorization under LinkedIn's current rules.
+- LinkedIn access tokens currently last about 60 days. ContextQuill can repeat the OAuth flow before expiry; programmatic refresh tokens are not generally available to self-service apps.
 - LinkedIn's public API terms create policy uncertainty around automated publishing. This version requires explicit human approval for every post; the partnership and review path should be confirmed before commercial launch.
 
 ## Validation
@@ -142,8 +157,8 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) and [AGENTS.md](./AGENTS.md) for the co
 
 ## Next phase
 
-1. Hosted OAuth and secure token renewal
-2. Reliable hosted scheduling without a local process
+1. Reliable hosted scheduling without a local process
+2. Optional account service for cross-device use, with a separate explicit consent and retention model
 3. Image templates, infographics, and PDF document posts
 4. Compliant analytics synchronization or an official import wizard
 5. A visual draft library, weekly calendar, and approval interface inside ChatGPT

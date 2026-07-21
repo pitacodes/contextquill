@@ -1,7 +1,8 @@
 #!/usr/bin/env node
-import { execFileSync } from "node:child_process";
 import { stdin as input, stdout as output } from "node:process";
 import { createStore } from "../lib/core.mjs";
+import { LINKEDIN_SCOPES } from "../lib/linkedin-oauth.mjs";
+import { storeLinkedInToken } from "../lib/secure-credentials.mjs";
 
 function normalizeUrn(value) {
   const cleaned = String(value || "").trim();
@@ -76,11 +77,7 @@ if (!memberUrn || memberUrn === "urn:li:person:") {
   throw new Error("LinkedIn did not return a member identifier. Generate the token with openid and profile.");
 }
 
-execFileSync(
-  "security",
-  ["add-generic-password", "-U", "-s", "contextquill-linkedin-access-token", "-a", memberUrn, "-w", token],
-  { stdio: "ignore" },
-);
+storeLinkedInToken(memberUrn, token);
 
 const store = createStore();
 const ttlSeconds = Number(process.env.LINKEDIN_TOKEN_TTL_SECONDS || 5_184_000);
@@ -91,6 +88,7 @@ const profile = await store.configureProfile({
   linkedin_member_name: memberName,
   linkedin_connected_at: connectedAt.toISOString(),
   linkedin_token_expires_at: expiresAt.toISOString(),
+  linkedin_scopes: LINKEDIN_SCOPES,
 });
 process.stdout.write(
   `LinkedIn connection stored in macOS Keychain for ${profile.linkedin_member_name || profile.linkedin_member_urn}. ` +

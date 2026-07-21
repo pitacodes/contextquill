@@ -15,7 +15,7 @@ if (connection.connected) {
 }
 
 const result = {
-  contextquill: "0.1.0",
+  contextquill: "0.2.0",
   node: process.version,
   node_supported: Number(process.versions.node.split(".")[0]) >= 20,
   data_dir: resolveDataDir(),
