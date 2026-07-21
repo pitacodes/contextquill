@@ -26,9 +26,10 @@ The operating principle is:
 ## Start of a ContextQuill session
 
 1. Call `get_dashboard`.
-2. If the content profile is missing positioning or audience, configure it before drafting. Keep onboarding compact. Infer safe fields from the current conversation and ask only for genuinely missing, consequential information.
-3. Call `get_profile` before writing so the draft follows positioning, audience, voice, pillars, and disclosure boundaries.
-4. When there are at least five measured posts, call `analyze_performance` before preparing a batch.
+2. Call `linkedin_connection_status`. If the user wants publishing and their account is not connected, call `connect_linkedin`. Explain that LinkedIn opens in the operating system's default browser and that the user must authorize their own account there. Never ask them to paste a token into chat.
+3. If the content profile is missing positioning or audience, configure it before drafting. Keep onboarding compact. Infer safe fields from the current conversation and ask only for genuinely missing, consequential information.
+4. Call `get_profile` before writing so the draft follows positioning, audience, voice, pillars, and disclosure boundaries.
+5. When there are at least five measured posts, call `analyze_performance` before preparing a batch.
 
 ## Passive signal capture in active work
 
@@ -100,7 +101,7 @@ Do not submit a draft until it passes all checks:
    - for a future time, call `schedule_approved_post` with a timezone-aware ISO date;
    - if the user asked only to approve, leave it in APPROVED state.
 7. Before the first real publish in a session, use `verify_linkedin_connection` if connection freshness is uncertain.
-8. Report the LinkedIn post ID or scheduled time. If the official connection is missing, do a dry run and explain the one remaining connection step.
+8. Report the LinkedIn post ID or scheduled time. If the official connection is missing, do a dry run and offer `connect_linkedin` as the one remaining connection step.
 
 ## Performance analysis
 

@@ -1,0 +1,170 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f1f7f5;
+  --foreground: #102a2b;
+  --muted: #4a6967;
+  --line: #c9dcda;
+  --brand: #155e75;
+  --brand-dark: #103f50;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--background);
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+}
+
+.shell {
+  width: min(1120px, calc(100% - 40px));
+  margin: 0 auto;
+  padding: 54px 0 40px;
+}
+
+.hero {
+  min-height: 58vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 44px clamp(24px, 6vw, 72px);
+  background:
+    radial-gradient(circle at 85% 16%, rgba(21, 94, 117, 0.14), transparent 28%),
+    linear-gradient(145deg, #ffffff 0%, #edf6f3 100%);
+  border: 1px solid var(--line);
+  border-radius: 32px;
+  box-shadow: 0 30px 100px rgba(16, 63, 80, 0.1);
+}
+
+.brand-row {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  font-weight: 720;
+  letter-spacing: -0.02em;
+}
+
+.brand-mark {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border-radius: 13px;
+  color: white;
+  background: var(--brand);
+  font-size: 14px;
+  letter-spacing: -0.04em;
+}
+
+.status {
+  width: fit-content;
+  margin-top: clamp(54px, 10vh, 96px);
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(15, 118, 110, 0.08);
+  color: #0f766e;
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.status span {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  margin-right: 7px;
+  border-radius: 999px;
+  background: #0f9f8e;
+  box-shadow: 0 0 0 4px rgba(15, 159, 142, 0.12);
+}
+
+h1 {
+  max-width: 820px;
+  margin: 22px 0 20px;
+  font-size: clamp(42px, 7vw, 78px);
+  line-height: 0.99;
+  letter-spacing: -0.065em;
+  font-weight: 760;
+}
+
+.lead {
+  max-width: 720px;
+  margin: 0;
+  color: var(--muted);
+  font-size: clamp(18px, 2.2vw, 24px);
+  line-height: 1.55;
+}
+
+.principles {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 18px;
+}
+
+.principles article {
+  min-height: 248px;
+  padding: 28px;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.78);
+}
+
+.step {
+  color: var(--brand);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+h2 {
+  margin: 38px 0 12px;
+  font-size: 21px;
+  letter-spacing: -0.035em;
+}
+
+.principles p,
+footer {
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+footer {
+  padding: 32px 4px 0;
+  font-size: 14px;
+}
+
+@media (max-width: 760px) {
+  .shell {
+    width: min(100% - 24px, 1120px);
+    padding-top: 12px;
+  }
+
+  .hero {
+    min-height: 72vh;
+    border-radius: 24px;
+  }
+
+  .principles {
+    grid-template-columns: 1fr;
+  }
+
+  .principles article {
+    min-height: 210px;
+  }
+}

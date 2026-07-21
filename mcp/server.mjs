@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import readline from "node:readline";
 import { createStore, ContextQuillError } from "../lib/core.mjs";
+import { connectLinkedInViaHostedOAuth } from "../lib/linkedin-oauth.mjs";
 
 const store = createStore();
 
@@ -221,6 +222,14 @@ const TOOLS = [
     annotations: { readOnlyHint: false, openWorldHint: true, destructiveHint: false },
   },
   {
+    name: "connect_linkedin",
+    title: "Connect LinkedIn account",
+    description:
+      "Open LinkedIn in the user's default browser and connect the account they authorize through ContextQuill's secure hosted OAuth handoff. Stores the token only in the user's secure local credential store and never returns it.",
+    inputSchema: objectSchema(),
+    annotations: { readOnlyHint: false, openWorldHint: true, destructiveHint: false },
+  },
+  {
     name: "linkedin_connection_status",
     title: "Check LinkedIn connection",
     description: "Check whether a member URN and access token are available without exposing the token.",
@@ -234,6 +243,14 @@ const TOOLS = [
       "Call LinkedIn's official userinfo endpoint to verify that the stored token belongs to the configured member. Never exposes the token.",
     inputSchema: objectSchema(),
     annotations: { readOnlyHint: true, openWorldHint: true, destructiveHint: false },
+  },
+  {
+    name: "disconnect_linkedin",
+    title: "Disconnect LinkedIn account",
+    description:
+      "Remove the locally stored LinkedIn credential and account binding. This does not revoke the app from LinkedIn's own settings.",
+    inputSchema: objectSchema(),
+    annotations: { readOnlyHint: false, openWorldHint: false, destructiveHint: true },
   },
   {
     name: "record_post_metrics",
@@ -300,8 +317,10 @@ const HANDLERS = {
   schedule_approved_post: (args) => store.scheduleDraft(args),
   publish_approved_post: (args) => store.publishApprovedDraft(args),
   publish_due_posts: () => store.publishDuePosts(),
+  connect_linkedin: () => connectLinkedInViaHostedOAuth({ store }),
   linkedin_connection_status: () => store.connectionStatus(),
   verify_linkedin_connection: () => store.verifyLinkedInConnection(),
+  disconnect_linkedin: () => store.disconnectLinkedIn(),
   record_post_metrics: (args) => store.recordMetrics(args),
   analyze_performance: (args) => store.analyzePerformance(args),
   export_performance_report: (args) => store.exportPerformanceReport(args),
@@ -325,7 +344,7 @@ async function dispatch(request) {
     success(id, {
       protocolVersion: params.protocolVersion || "2025-06-18",
       capabilities: { tools: { listChanged: false } },
-      serverInfo: { name: "contextquill", version: "0.1.0" },
+      serverInfo: { name: "contextquill", version: "0.2.0" },
       instructions:
         "ContextQuill turns real work into reviewed LinkedIn content. Never publish or schedule a draft until a human has typed the exact approval phrase produced by submit_for_human_review.",
     });

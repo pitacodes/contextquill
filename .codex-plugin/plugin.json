@@ -1,10 +1,13 @@
 {
   "name": "contextquill",
-  "version": "0.1.0+codex.20260720133142",
+  "version": "0.2.0+codex.20260721154036",
   "description": "Turn real work into reviewed, high-quality LinkedIn content and learn which topics earn attention.",
   "author": {
-    "name": "Peter"
+    "name": "Peter Zhang",
+    "url": "https://github.com/pitacodes"
   },
+  "homepage": "https://github.com/pitacodes/contextquill",
+  "repository": "https://github.com/pitacodes/contextquill",
   "license": "MIT",
   "keywords": [
     "linkedin",
@@ -19,7 +22,7 @@
     "displayName": "ContextQuill",
     "shortDescription": "Turn daily work into LinkedIn pipeline.",
     "longDescription": "ContextQuill captures valuable ideas from real work, turns them into public-safe LinkedIn drafts, locks the exact human-approved version before publishing, and learns which topics and formats produce the most exposure.",
-    "developerName": "Peter",
+    "developerName": "Peter Zhang",
     "category": "Productivity",
     "capabilities": [
       "Read",
@@ -33,6 +36,9 @@
       "Show my best topics and prepare this week's posts."
     ],
     "brandColor": "#155E75",
+    "websiteURL": "https://github.com/pitacodes/contextquill",
+    "privacyPolicyURL": "https://github.com/pitacodes/contextquill/blob/main/PRIVACY.md",
+    "termsOfServiceURL": "https://github.com/pitacodes/contextquill/blob/main/TERMS.md",
     "composerIcon": "./assets/contextquill-icon.svg",
     "logo": "./assets/contextquill-logo.svg",
     "logoDark": "./assets/contextquill-logo-dark.svg"
