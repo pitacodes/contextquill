@@ -1,165 +1,224 @@
-# Project ContextQuill
+# ContextQuill
 
-ContextQuill is a Work-to-LinkedIn assistant for Codex and ChatGPT Work. It discovers ideas worth sharing inside real work, turns them into high-quality public-safe drafts, locks the exact version approved by a human, and then publishes or schedules it. Post-performance data feeds the next topic and format recommendations.
+<p align="center">
+  <img src="assets/contextquill-logo.svg" alt="ContextQuill" width="520">
+</p>
 
-## What v0.2 includes
+<p align="center">
+  Turn the work you already do into thoughtful LinkedIn posts — then review, schedule, publish, and learn what earns attention.
+</p>
 
-- Structured content signals from Codex work, customer conversations, analysis, retrospectives, and industry news
-- A profile for positioning, target audience, content pillars, voice, and disclosure boundaries
-- A draft library with consistent topic, content-type, format, and hook labels
-- Customer and internal-information disclosure checks
-- A human review code
-- An exact content-hash lock after approval
-- Automatic revocation of approval and scheduling after any edit
-- Immediate or scheduled publishing after approval
-- Text and single-image LinkedIn posts
-- Exposure analysis by topic, content type, format, hook, and weekday
-- Shrinkage scores and confidence labels to reduce small-sample overfitting
-- Tracking for impressions, engagement, clicks, follows, and attributed leads
-- Local-first private storage and an audit trail
+<p align="center">
+  <a href="https://github.com/pitacodes/contextquill/releases/latest"><img alt="Latest release" src="https://img.shields.io/github/v/release/pitacodes/contextquill?display_name=tag&style=flat-square"></a>
+  <a href="https://github.com/pitacodes/contextquill/actions/workflows/ci.yml"><img alt="Tests" src="https://img.shields.io/github/actions/workflow/status/pitacodes/contextquill/ci.yml?branch=main&style=flat-square&label=tests"></a>
+  <a href="LICENSE"><img alt="MIT License" src="https://img.shields.io/badge/license-MIT-155E75?style=flat-square"></a>
+  <img alt="Node 20+" src="https://img.shields.io/badge/node-20%2B-155E75?style=flat-square">
+</p>
 
-## Safe approval chain
+<p align="center">
+  <img src="assets/contextquill-readme-hero.png" alt="Work signals flow through ContextQuill into reviewed LinkedIn drafts, scheduled posts, and analytics" width="100%">
+</p>
 
-The state can only move in this direction:
+<p align="center">
+  <a href="INSTALL.md"><strong>Install ContextQuill in five minutes →</strong></a>
+  ·
+  <a href="https://github.com/pitacodes/contextquill/releases/latest"><strong>Download the latest release →</strong></a>
+</p>
 
-```text
-DRAFT -> IN_REVIEW -> APPROVED -> SCHEDULED / PUBLISHED
-   ^          Any change to text, links, or images returns the post here
-```
+ContextQuill is a small, free, open-source side project for people who already spend their day in Codex, ChatGPT Work, Claude Code, or Claude Cowork. I built it because I wanted to keep posting on LinkedIn without adding “think of something to post” to my weekly to-do list.
 
-When a draft enters review, ContextQuill displays the complete final version and generates a code such as `CQ-A1B2C3`. Only the human reviewer can move that exact version into `APPROVED` by typing `APPROVE CQ-A1B2C3`.
+It notices ideas inside the work you are already doing, turns the useful ones into drafts, and waits for you to approve the exact final version. Approve a few at once, schedule them, and get back to work.
 
-The approval lock covers the post body, links, and attachments. Any later change deletes the approval record and requires a new review.
+## That is the whole idea
 
-## Install and use
+Your best posts are probably already hiding in work you finished:
 
-After installation, select ContextQuill in a new task or say:
+- You solved a difficult customer problem.
+- You noticed a pattern across several conversations.
+- You made a product decision and learned from the trade-off.
+- You found an industry change that matters to your buyers.
+- You finished an analysis other people would genuinely find useful.
 
-- "Set up my ContextQuill content positioning."
-- "Find anything in the work we just completed that is worth sharing on LinkedIn."
-- "Choose the three strongest ideas for this week's posts."
-- "Analyze which recent topics earned more exposure and plan next week's mix."
+ContextQuill turns those moments into a small queue of drafts and waits for your explicit approval before anything can be published.
 
-By default, private content data is stored in:
+> Keep doing your work. Let LinkedIn stay alive in the background.
 
-```text
-~/Documents/Codex/ContextQuill
-```
+Try it for one week: tell ContextQuill what you care about once, let it collect useful ideas while you work, then approve and schedule a small batch. No content calendar. No daily brainstorming ritual. No pretending the project is a marketing department.
 
-Set `CONTEXTQUILL_DATA_DIR` to use another location.
+## Why people use it
 
-### GitHub marketplace beta
+- **No blank-page problem.** Content ideas come from work you already completed.
+- **Your judgment stays visible.** Drafts preserve the decision, trade-off, or lesson instead of flattening it into AI filler.
+- **Human approval is mandatory.** ContextQuill cannot publish a draft until you type its exact one-time approval phrase.
+- **Scheduling is built in.** Approve a batch once and let ContextQuill publish the exact locked versions at the chosen times.
+- **It learns from results.** Add post metrics and get topic, format, hook, and weekday recommendations with confidence labels.
+- **Local-first by default.** Drafts and source signals stay on your computer; LinkedIn credentials live in the operating system's secure credential store where supported.
 
-After the repository is public, external beta users can install ContextQuill through its GitHub-backed marketplace:
+## Get ContextQuill
 
-```text
+### Codex and ChatGPT Work
+
+Add the public marketplace and install the plugin:
+
+```bash
 codex plugin marketplace add pitacodes/contextquill
 codex plugin add contextquill@contextquill
 ```
 
-Restart the ChatGPT desktop app or start a new Codex CLI session after installation. While the repository remains private, installation requires GitHub access to the repository. See [Public distribution](./docs/public-distribution.md) for the official Plugins Directory path and its hosted-MCP requirements.
+Start a new task after installation. ContextQuill is then available in ChatGPT Work and Codex surfaces that support plugins. You can also browse plugins from Codex CLI with `/plugins`.
 
-## Connect LinkedIn
+### Claude Code and Claude Cowork
 
-ContextQuill uses LinkedIn's official APIs. It does not use browser cookies, simulated posting, or scraping.
-
-Each installation authorizes its own LinkedIn member through ContextQuill's hosted OAuth service. The LinkedIn client secret remains server-side. The app uses public Client ID `86z5t5sel4czpt` and requests only:
-
-- `openid` and `profile` to bind the token to the correct LinkedIn member;
-- `w_member_social` to publish on that member's behalf.
-
-Connect in one step:
+ContextQuill also ships an Anthropic-compatible plugin manifest and marketplace:
 
 ```text
-npm run authorize-linkedin
+/plugin marketplace add pitacodes/contextquill
+/plugin install contextquill@contextquill
 ```
 
-ContextQuill starts a temporary listener on a random `127.0.0.1` port and opens LinkedIn in the operating system's default browser. The hosted service validates OAuth state, exchanges LinkedIn's one-time code with the server-only client secret, verifies the member through `userinfo`, and returns an encrypted, installation-bound handoff code. Only the installation that started the flow can redeem it. On macOS, the resulting access token is stored in System Keychain under that member's URN.
+Restart the session or run `/reload-plugins` if Claude asks you to. Local MCP-backed tools require a desktop/local session; cloud-only Cowork sessions require a publicly hosted MCP server, which is not part of this local-first release.
 
-The plugin exposes the same flow through its `connect_linkedin` tool, so a user can simply ask ContextQuill to connect LinkedIn. Installing the plugin never grants access to another person's account.
+### Direct download
 
-For troubleshooting only, the manual token helper remains available:
+Download **`contextquill-plugin.zip`** from the [latest GitHub release](https://github.com/pitacodes/contextquill/releases/latest). The archive is ready for custom-plugin upload in clients that support plugin ZIPs and can also be extracted for local MCP use.
 
-```text
-npm run connect-linkedin
+For an offline-style Codex marketplace folder, download **`contextquill-codex-marketplace.zip`**, extract it, then run:
+
+```bash
+codex plugin marketplace add /absolute/path/to/contextquill-marketplace
+codex plugin add contextquill@contextquill-local
 ```
 
-The hosted handoff record expires within five minutes and its encrypted token copy is erased immediately after one successful redemption. The access token is never written to ContextQuill's JSON content store or returned by its tools. ContextQuill records only the member URN, display name, granted scopes, connection time, and expected reauthorization date. Authorizing a different member replaces the local account binding and removes the previous Keychain credential.
+See [Installation](INSTALL.md) for detailed setup, upgrades, platform notes, and manual MCP configuration.
 
-You can also provide credentials through the launch environment:
+## Your first five minutes
+
+Open a new task and say:
 
 ```text
-LINKEDIN_MEMBER_URN
-LINKEDIN_ACCESS_TOKEN
+Use ContextQuill. Set up my positioning for LinkedIn, connect my account,
+and look for one strong content signal in the work we just completed.
 ```
 
-Run a live identity and connection diagnostic with:
+Then try:
+
+- “Turn this week's best three work insights into LinkedIn drafts.”
+- “Show me the exact final versions for review.”
+- “Schedule the approved posts for Tuesday, Wednesday, and Thursday at 9:00 AM.”
+- “Analyze my recent post metrics and propose next week's content mix.”
+
+The first LinkedIn connection opens the official LinkedIn authorization flow. Every installation connects only the account that its own user authorizes.
+
+## How the loop works
 
 ```text
+REAL WORK
+   ↓
+CAPTURE useful signals with minimal, public-safe context
+   ↓
+DRAFT in your positioning, voice, and content pillars
+   ↓
+REVIEW the complete post, links, images, and safety notes
+   ↓
+APPROVE the exact locked version with a one-time phrase
+   ↓
+PUBLISH now or SCHEDULE for later
+   ↓
+LEARN from impressions, engagement, and qualified leads
+```
+
+Any edit after approval automatically revokes approval and returns the post to draft. There is no “quietly changed after I approved it” path.
+
+## What is included
+
+- Content profile: positioning, audience, goals, pillars, voice, and disclosure boundaries
+- Signal inbox for insights found in customer work, analysis, news, and retrospectives
+- Draft library with stable labels for topic, format, content type, and hook style
+- Confidentiality checks and anonymous-by-default customer cases
+- Exact content-hash approval lock and audit trail
+- Immediate and scheduled LinkedIn publishing
+- Text and single-image posts through LinkedIn's official API
+- Exposure, engagement, clicks, follows, and attributed-lead tracking
+- Small-sample-aware recommendations so one lucky post does not rewrite the whole strategy
+- Open MCP tools that can be used from more than one work agent
+
+## A low-effort weekly rhythm
+
+1. Let ContextQuill capture strong signals while you work.
+2. Once a week, ask it to choose the five best signals.
+3. Review three finished posts instead of brainstorming from scratch.
+4. Approve the exact versions you are comfortable publishing.
+5. Schedule them across the week.
+6. Add metrics later and let the next batch adapt.
+
+The human attention goes into judgment and approval, not moving ideas between apps.
+
+See [Automation playbook](docs/AUTOMATION_PLAYBOOK.md) for ready-to-use weekly and daily task prompts.
+
+## Safety model
+
+ContextQuill is intentionally conservative about publishing:
+
+- It never invents customer stories, results, quotations, or personal experiences.
+- Customer cases are anonymous unless public evidence or explicit permission is recorded.
+- It never scrapes LinkedIn or uses browser cookies.
+- It never returns a LinkedIn access token through an MCP tool.
+- It cannot approve a draft on the user's behalf.
+- Scheduled publishing only accepts an already approved, hash-locked draft.
+
+Read [Privacy](PRIVACY.md), [Security](SECURITY.md), and the [OAuth architecture](docs/linkedin-oauth-architecture.md) before using it with sensitive work.
+
+## LinkedIn connection and scheduling
+
+ContextQuill uses LinkedIn's official OAuth and publishing APIs. On macOS, the connected account token is stored in Keychain. Other operating systems can use `LINKEDIN_MEMBER_URN` and `LINKEDIN_ACCESS_TOKEN` through the MCP process environment.
+
+The hosted OAuth handoff only performs the short-lived code exchange. It does not store drafts or become a long-term token vault. The production handoff service is checked as part of release readiness.
+
+Local scheduling runs while the ContextQuill MCP process is active. If the agent is closed at the scheduled time, an overdue approved post is retried the next time ContextQuill starts. Hosted, always-on scheduling is on the roadmap.
+
+## Work-agent compatibility
+
+| Agent | Install path | Content workflow | Local scheduling | Notes |
+|---|---|---:|---:|---|
+| Codex | Public plugin marketplace | Full | Yes | Recommended path |
+| ChatGPT Work | Shared OpenAI plugin catalog / installed plugin | Full | Yes, when the local MCP host is active | Start a new task after install |
+| Claude Code | GitHub plugin marketplace | Full | Yes | Uses the bundled local MCP server |
+| Claude Cowork | Custom plugin on desktop/local sessions | Full | Yes | Cloud-only sessions need a remote MCP deployment |
+| Other MCP clients | Manual stdio configuration | Full | Yes | Point the client at `mcp/server.mjs` |
+
+See [Using ContextQuill with work agents](docs/WORK_AGENTS.md) for exact configuration and workflow examples.
+
+## Local development
+
+Requirements: Node.js 20 or later.
+
+```bash
+git clone https://github.com/pitacodes/contextquill.git
+cd contextquill
+npm test
 npm run doctor
 ```
 
-Publishing uses the self-service Share on LinkedIn APIs: `POST /v2/ugcPosts` for text and article posts, plus `POST /v2/assets?action=registerUpload` before single-image posts. The member's daily self-service limit is 150 requests under LinkedIn's current documentation.
+The local MCP server has no third-party runtime dependencies. The separately deployed OAuth handoff service lives under `oauth-service/` and has its own build and tests.
 
-## What automatic publishing means
+To build the two downloadable release archives:
 
-ContextQuill never decides on its own that a draft should be published. Automation begins only after the human has:
-
-1. typed the exact review code to approve the final version; and
-2. explicitly selected Publish now or a scheduled time.
-
-Approved scheduled posts publish while the local ContextQuill MCP process is running. If Codex or ChatGPT Work is closed at the scheduled time, ContextQuill publishes the overdue approved post the next time the process starts.
-
-## Performance data
-
-LinkedIn's self-service write permission does not automatically include personal-post analytics access. ContextQuill therefore does not scrape LinkedIn. v0.1 accepts official exports or metrics supplied by the user:
-
-- impressions
-- reactions
-- comments
-- reposts
-- clicks
-- follows
-- attributed leads
-
-Analysis returns:
-
-- mean and median impressions plus a shrinkage-based exposure score
-- engagement rate and attributed leads
-- performance by content type, format, hook, and weekday
-- sample-confidence labels
-- topics worth testing again
-- a minimum 25% exploration allocation
-
-## Current limitations
-
-- Publishing currently supports text and one image. Multi-image, video, and PDF document posts are later phases.
-- Personal-post performance data requires import and is not synchronized automatically.
-- Local scheduling depends on the ContextQuill process running. A commercial version needs hosted scheduling.
-- LinkedIn access tokens currently last about 60 days. ContextQuill can repeat the OAuth flow before expiry; programmatic refresh tokens are not generally available to self-service apps.
-- LinkedIn's public API terms create policy uncertainty around automated publishing. This version requires explicit human approval for every post; the partnership and review path should be confirmed before commercial launch.
-
-## Validation
-
-The project has no third-party npm dependencies. Use Node.js 20 or later:
-
-```text
-npm test
+```bash
+npm run package
 ```
 
-The plugin structure is validated with OpenAI's Plugin Creator validator.
+## Project status
 
-## Repository workflow
+ContextQuill is an open-source beta. Text and one-image publishing work today. Personal-post metrics are imported rather than scraped. Video, PDF/carousel publishing, automatic analytics sync, and hosted scheduling remain future work.
 
-ContextQuill is maintained in a private GitHub repository. After the initial bootstrap, changes are developed on `codex/*` branches and are not pushed or merged until the owner types the exact approval phrase `APPROVE GITHUB <branch-or-pr>`. Any change after approval requires a fresh review.
+See [Roadmap](docs/ROADMAP.md) and [Changelog](CHANGELOG.md).
 
-See [CONTRIBUTING.md](./CONTRIBUTING.md) and [AGENTS.md](./AGENTS.md) for the complete workflow and credential-handling rules.
+## Built by Peter Zhang
 
-## Next phase
+I built ContextQuill because the most credible B2B content usually already exists inside the work: a hard decision, a recurring customer pattern, a useful operating method, or a lesson earned the expensive way. The problem is consistently noticing and publishing it without turning content creation into another full-time job.
 
-1. Reliable hosted scheduling without a local process
-2. Optional account service for cross-device use, with a separate explicit consent and retention model
-3. Image templates, infographics, and PDF document posts
-4. Compliant analytics synchronization or an official import wizard
-5. A visual draft library, weekly calendar, and approval interface inside ChatGPT
-6. B2B SaaS-specific models for customer cases, operator insights, and demand-generation content
+If ContextQuill helps you publish something worthwhile, please star the repository, share what worked, or open an issue with your workflow. That feedback will shape what I build next.
+
+## Contributing
+
+Issues and pull requests are welcome. Please read [Contributing](CONTRIBUTING.md) and [Security](SECURITY.md). ContextQuill is released under the [MIT License](LICENSE).

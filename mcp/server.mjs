@@ -344,7 +344,7 @@ async function dispatch(request) {
     success(id, {
       protocolVersion: params.protocolVersion || "2025-06-18",
       capabilities: { tools: { listChanged: false } },
-      serverInfo: { name: "contextquill", version: "0.2.0" },
+      serverInfo: { name: "contextquill", version: "0.3.0" },
       instructions:
         "ContextQuill turns real work into reviewed LinkedIn content. Never publish or schedule a draft until a human has typed the exact approval phrase produced by submit_for_human_review.",
     });

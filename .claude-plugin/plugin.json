@@ -1,0 +1,29 @@
+{
+  "name": "contextquill",
+  "displayName": "ContextQuill",
+  "version": "0.3.0",
+  "description": "Turn real work into reviewed LinkedIn posts, schedule approved drafts, and learn which topics earn attention.",
+  "author": {
+    "name": "Peter Zhang",
+    "url": "https://github.com/pitacodes"
+  },
+  "homepage": "https://github.com/pitacodes/contextquill",
+  "repository": "https://github.com/pitacodes/contextquill",
+  "license": "MIT",
+  "keywords": [
+    "linkedin",
+    "content-marketing",
+    "thought-leadership",
+    "scheduling",
+    "analytics"
+  ],
+  "skills": "./skills/",
+  "mcpServers": {
+    "contextquill": {
+      "command": "node",
+      "args": [
+        "${CLAUDE_PLUGIN_ROOT}/mcp/server.mjs"
+      ]
+    }
+  }
+}

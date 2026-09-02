@@ -1,0 +1,61 @@
+name: Bug report
+description: Report a reproducible ContextQuill problem without sharing secrets or private content.
+title: "[Bug]: "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: Do not include LinkedIn tokens, OAuth codes, browser cookies, customer content, or files from your ContextQuill data directory.
+  - type: input
+    id: version
+    attributes:
+      label: ContextQuill version
+      placeholder: 0.3.0
+    validations:
+      required: true
+  - type: dropdown
+    id: host
+    attributes:
+      label: Work agent
+      options:
+        - Codex
+        - ChatGPT Work
+        - Claude Code
+        - Claude Cowork
+        - Other MCP client
+    validations:
+      required: true
+  - type: input
+    id: os
+    attributes:
+      label: Operating system
+      placeholder: macOS 15, Windows 11, Ubuntu 24.04
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction steps
+      description: Use non-sensitive example content.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+    validations:
+      required: true
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Safety check
+      options:
+        - label: I removed credentials, OAuth codes, browser data, and private source material.
+          required: true

@@ -24,6 +24,9 @@ jobs:
       - name: Run tests
         run: npm test
 
+      - name: Build release archives
+        run: npm run package
+
       - name: Check JavaScript syntax
         run: |
           node --check lib/core.mjs

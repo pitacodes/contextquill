@@ -1,0 +1,37 @@
+{
+  "name": "contextquill",
+  "owner": {
+    "name": "Peter Zhang",
+    "url": "https://github.com/pitacodes"
+  },
+  "metadata": {
+    "description": "Open-source work-to-LinkedIn tools for AI work agents.",
+    "version": "0.3.0"
+  },
+  "plugins": [
+    {
+      "name": "contextquill",
+      "source": {
+        "source": "github",
+        "repo": "pitacodes/contextquill",
+        "ref": "main"
+      },
+      "description": "Turn real work into reviewed LinkedIn posts, schedule approved drafts, and learn which topics earn attention.",
+      "version": "0.3.0",
+      "author": {
+        "name": "Peter Zhang",
+        "url": "https://github.com/pitacodes"
+      },
+      "homepage": "https://github.com/pitacodes/contextquill",
+      "repository": "https://github.com/pitacodes/contextquill",
+      "license": "MIT",
+      "category": "Marketing",
+      "tags": [
+        "linkedin",
+        "content-marketing",
+        "thought-leadership",
+        "scheduling"
+      ]
+    }
+  ]
+}
