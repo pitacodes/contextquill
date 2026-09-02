@@ -1,0 +1,20 @@
+{
+  "name": "contextquill-local",
+  "interface": {
+    "displayName": "ContextQuill Local"
+  },
+  "plugins": [
+    {
+      "name": "contextquill",
+      "source": {
+        "source": "local",
+        "path": "./plugins/contextquill"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

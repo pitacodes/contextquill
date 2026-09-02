@@ -1,6 +1,8 @@
-# ContextQuill Local Privacy Notes
+# ContextQuill Privacy Notes
 
-ContextQuill v0.2 is local-first.
+Last updated: September 3, 2026
+
+ContextQuill 0.3 is a free, open-source, local-first tool. These notes describe the repository's default implementation; a fork or third-party deployment may behave differently.
 
 - Content profiles, signals, drafts, posts, metrics, and audit events are stored under the configured ContextQuill data directory.
 - Files are written with user-only permissions where the operating system supports them.
@@ -14,5 +16,7 @@ ContextQuill v0.2 is local-first.
 - The plugin sends content to LinkedIn only when publishing an exact human-approved draft.
 - ContextQuill does not scrape LinkedIn or use browser-session cookies.
 - Users remain responsible for ensuring that source material and published content may lawfully be used.
+- ContextQuill has no advertising SDK, tracking pixel, or product-analytics collector in the local plugin.
+- Deleting the configured ContextQuill data directory removes the local profile, signals, drafts, metrics, and audit history. Disconnecting LinkedIn removes the locally stored credential but does not revoke the app inside LinkedIn; users may revoke it separately in LinkedIn settings.
 
-Before commercial launch, this note must be replaced by a complete public privacy policy, deletion process, security model, incident-response policy, and subprocessor disclosure. A future hosted scheduler must use a separate explicit consent and retention model; this OAuth handoff service is not a persistent token vault.
+A future hosted scheduler or hosted MCP service will require a separate explicit consent, retention, deletion, security, and subprocessor policy. The current OAuth handoff service is not a persistent token vault.

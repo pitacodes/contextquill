@@ -1,8 +1,8 @@
 # ContextQuill Terms of Use
 
-Last updated: July 21, 2026
+Last updated: September 3, 2026
 
-ContextQuill is an early-stage, local-first tool that helps users prepare, review, and publish LinkedIn content. By installing or using ContextQuill, you agree to these terms.
+ContextQuill is a free, open-source, local-first tool that helps users prepare, review, schedule, and publish LinkedIn content. By installing or using ContextQuill, you agree to these terms and the MIT License that governs the software.
 
 ## Your responsibility
 

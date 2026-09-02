@@ -1,6 +1,6 @@
 # ContextQuill Support
 
-ContextQuill is currently a private beta maintained by Peter Zhang.
+ContextQuill is an open-source beta maintained by Peter Zhang and the community.
 
 ## Before requesting support
 
@@ -14,8 +14,10 @@ Do not include LinkedIn access tokens, OAuth codes, browser cookies, passwords, 
 
 ## Report an issue
 
-Use the repository issue tracker when it is available to you:
+Use the public repository issue tracker:
 
 https://github.com/pitacodes/contextquill/issues
 
-Include the ContextQuill version, operating system, the action you attempted, the exact non-secret error message, and whether `npm run doctor` passed. Security-sensitive reports should not be posted publicly; request a private contact channel without including the sensitive details.
+Include the ContextQuill version, operating system, work agent, the action you attempted, the exact non-secret error message, and whether `npm run doctor` passed.
+
+Security-sensitive reports belong in [GitHub private vulnerability reporting](https://github.com/pitacodes/contextquill/security/advisories/new), not a public issue. See [SECURITY.md](./SECURITY.md).

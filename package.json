@@ -1,15 +1,21 @@
 {
   "name": "contextquill",
-  "version": "0.2.0",
-  "private": true,
+  "version": "0.3.0",
   "type": "module",
-  "description": "Local-first Work-to-LinkedIn plugin for Codex and ChatGPT Work.",
+  "description": "Open-source, local-first work-to-LinkedIn plugin for AI work agents.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pitacodes/contextquill.git"
+  },
+  "homepage": "https://github.com/pitacodes/contextquill#readme",
   "scripts": {
     "test": "node --test tests/*.test.mjs",
     "mcp": "node mcp/server.mjs",
     "doctor": "node scripts/doctor.mjs",
     "authorize-linkedin": "node scripts/authorize-linkedin.mjs",
-    "connect-linkedin": "node scripts/store-linkedin-token.mjs"
+    "connect-linkedin": "node scripts/store-linkedin-token.mjs",
+    "package": "bash scripts/build-release.sh"
   },
   "engines": {
     "node": ">=20"

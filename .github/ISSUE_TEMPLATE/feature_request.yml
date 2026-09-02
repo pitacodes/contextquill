@@ -1,0 +1,33 @@
+name: Feature request
+description: Suggest an improvement to the work-to-content workflow.
+title: "[Idea]: "
+labels:
+  - enhancement
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem would this solve?
+      description: Describe the real workflow and why the current behavior is insufficient.
+    validations:
+      required: true
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Desired outcome
+      description: Explain the user-visible result rather than only an implementation idea.
+    validations:
+      required: true
+  - type: dropdown
+    id: host
+    attributes:
+      label: Work agent
+      options:
+        - All agents
+        - Codex
+        - ChatGPT Work
+        - Claude Code
+        - Claude Cowork
+        - Other MCP client
+    validations:
+      required: true

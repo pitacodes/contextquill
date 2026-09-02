@@ -1,6 +1,6 @@
 {
   "name": "contextquill",
-  "version": "0.2.0+codex.20260721154036",
+  "version": "0.3.0",
   "description": "Turn real work into reviewed, high-quality LinkedIn content and learn which topics earn attention.",
   "author": {
     "name": "Peter Zhang",
@@ -21,7 +21,7 @@
   "interface": {
     "displayName": "ContextQuill",
     "shortDescription": "Turn daily work into LinkedIn pipeline.",
-    "longDescription": "ContextQuill captures valuable ideas from real work, turns them into public-safe LinkedIn drafts, locks the exact human-approved version before publishing, and learns which topics and formats produce the most exposure.",
+    "longDescription": "ContextQuill captures valuable ideas from real work, turns them into public-safe LinkedIn drafts, locks the exact human-approved version before publishing or scheduling, and learns which topics and formats produce the most useful attention.",
     "developerName": "Peter Zhang",
     "category": "Productivity",
     "capabilities": [
